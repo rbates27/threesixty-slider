@@ -585,7 +585,13 @@
     */
 
     base.responsive = function() {
-      if(AppConfig.responsive) {
+      if(AppConfig.responsive && AppConfig.limitMaxWidth) {
+        base.$el.css({
+            height: base.$el.find('.current-image').first().css('height'),
+            maxWidth: '100%'
+        });
+      }
+      if(AppConfig.responsive && !AppConfig.limitMaxWidth) {
         base.$el.css({
           height: base.$el.find('.current-image').first().css('height'),
           width: '100%'
@@ -850,7 +856,13 @@
       * @cfg {Number} playSpeed
       * Value to control the speed of play button rotation
       */
-      playSpeed: 100
+      playSpeed: 100,
+      /**
+       * @cfg {Boolean} limitMaxWidth
+       * true = maximum width for responsive threesixty is capped to max image size.  Useful to prevent overscaling smaller images.
+       * false = responsive threesixty will scale images up to width of browser
+       */
+      limitMaxWidth: true
     };
     base.init();
   };
